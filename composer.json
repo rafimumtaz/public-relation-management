@@ -7,13 +7,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "bezhansalleh/filament-shield": "^4.2",
-        "filament/filament": "*",
+        "bezhansalleh/filament-shield": "*",
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0",
-        "league/flysystem-aws-s3-v3": "^3.34",
-        "maatwebsite/excel": "^3.1",
-        "spatie/laravel-permission": "^7.4"
+        "league/flysystem-aws-s3-v3": "*",
+        "maatwebsite/excel": "*",
+        "spatie/laravel-permission": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -55,8 +54,7 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
+            "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"

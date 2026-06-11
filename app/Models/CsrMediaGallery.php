@@ -18,6 +18,11 @@ class CsrMediaGallery extends Model
         'file_type',
     ];
 
+    public function csrEvent(): BelongsTo
+    {
+        return $this->belongsTo(CsrEvent::class, 'csr_event_id');
+    }
+
     public function event(): BelongsTo
     {
         return $this->belongsTo(CsrEvent::class, 'csr_event_id');

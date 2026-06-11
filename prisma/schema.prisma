@@ -197,3 +197,72 @@ model AssetDownloadLog {
 
   @@map("asset_download_logs")
 }
+
+model Cache {
+  key        String @id @db.VarChar(255)
+  value      String @db.Text
+  expiration Int
+
+  @@map("cache")
+}
+
+model CacheLock {
+  key        String @id @db.VarChar(255)
+  owner      String @db.VarChar(255)
+  expiration Int
+
+  @@map("cache_locks")
+}
+
+model Session {
+  id            String  @id @db.VarChar(255)
+  user_id       BigInt?
+  ip_address    String? @db.VarChar(45)
+  user_agent    String? @db.Text
+  payload       String  @db.Text
+  last_activity Int
+
+  @@index([user_id])
+  @@index([last_activity])
+  @@map("sessions")
+}
+
+model Job {
+  id           BigInt @id @default(autoincrement())
+  queue        String
+  payload      String @db.Text
+  attempts     Int    @db.SmallInt
+  reserved_at  Int?
+  available_at Int
+  created_at   Int
+
+  @@index([queue])
+  @@map("jobs")
+}
+
+model JobBatch {
+  id             String @id @db.VarChar(255)
+  name           String
+  total_jobs     Int
+  pending_jobs   Int
+  failed_jobs    Int
+  failed_job_ids String @db.Text
+  options        String? @db.Text
+  cancelled_at   Int?
+  created_at     Int
+  finished_at    Int?
+
+  @@map("job_batches")
+}
+
+model FailedJob {
+  id         BigInt   @id @default(autoincrement())
+  uuid       String   @unique
+  connection String   @db.Text
+  queue      String   @db.Text
+  payload    String   @db.Text
+  exception  String   @db.Text
+  failed_at  DateTime @default(now())
+
+  @@map("failed_jobs")
+}

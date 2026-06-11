@@ -13,6 +13,7 @@ class BrandAsset extends Model
     protected $table = 'brand_assets';
 
     protected $fillable = [
+        'folder_id',
         'name',
         'category',
         'file_path',
@@ -20,6 +21,11 @@ class BrandAsset extends Model
         'file_size_kb',
         'uploaded_by_id',
     ];
+
+    public function folder(): BelongsTo
+    {
+        return $this->belongsTo(BrandAssetFolder::class, 'folder_id');
+    }
 
     public function uploadedBy(): BelongsTo
     {
