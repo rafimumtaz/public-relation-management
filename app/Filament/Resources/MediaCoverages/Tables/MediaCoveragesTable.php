@@ -61,6 +61,10 @@ class MediaCoveragesTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                \Filament\Tables\Actions\ImportAction::make()
+                    ->importer(\App\Filament\Imports\MediaCoverageImporter::class),
             ]);
     }
 }
