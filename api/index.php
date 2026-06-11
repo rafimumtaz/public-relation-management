@@ -6,6 +6,19 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/../vendor/autoload.php';
 
+// Vercel build puts absolute paths in the cache (/vercel/path0) which breaks at runtime (/var/task)
+$cacheFiles = [
+    __DIR__.'/../bootstrap/cache/packages.php',
+    __DIR__.'/../bootstrap/cache/services.php',
+    __DIR__.'/../bootstrap/cache/config.php',
+    __DIR__.'/../bootstrap/cache/routes-v7.php',
+];
+foreach ($cacheFiles as $file) {
+    if (file_exists($file)) {
+        @unlink($file);
+    }
+}
+
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 // Configure for Vercel's read-only filesystem
