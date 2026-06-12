@@ -63,7 +63,7 @@ class MediaCoveragesTable
                 ]),
             ])
             ->headerActions([
-                \Filament\Tables\Actions\ImportAction::make()
+                \Filament\Actions\ImportAction::make()
                     ->importer(\App\Filament\Imports\MediaCoverageImporter::class),
             ]);
     }
