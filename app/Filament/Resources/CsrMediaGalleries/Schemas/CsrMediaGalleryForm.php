@@ -19,6 +19,13 @@ class CsrMediaGalleryForm
                     ->disk('s3')
                     ->directory('csr-media')
                     ->visibility('public')
+                    ->saveUploadedFileUsing(function (\Filament\Forms\Components\BaseFileUpload $component, \Livewire\Features\SupportFileUploads\TemporaryUploadedFile $file) {
+                        $filename = $file->hashName();
+                        $path = $component->getDirectory() . '/' . $filename;
+                        $content = $file->get(); // Downloads temp file content into memory
+                        \Illuminate\Support\Facades\Storage::disk($component->getDiskName())->put($path, $content);
+                        return $path;
+                    })
                     ->required()
                     ->columnSpanFull(),
                 Select::make('file_type')
