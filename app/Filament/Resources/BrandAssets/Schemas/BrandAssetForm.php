@@ -15,7 +15,14 @@ class BrandAssetForm
             ->components([
                 Select::make('folder_id')
                     ->relationship('folder', 'name')
-                    ->required(),
+                    ->required()
+                    ->createOptionForm([
+                        \Filament\Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        \Filament\Forms\Components\TextInput::make('description')
+                            ->maxLength(255),
+                    ]),
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255)
